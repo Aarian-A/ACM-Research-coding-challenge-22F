@@ -1,10 +1,3 @@
-import numpy as np # linear algebra
-import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)
-import matplotlib.pyplot as plt
-from sklearn import linear_model
-from sklearn.linear_model import LinearRegression
-from mpl_toolkits.mplot3d import Axes3D
-
 dataset = pd.read_csv('../input/carsforsale/cars_raw.csv')
 
 #First graph displaying original data
@@ -39,16 +32,17 @@ plt.show()
 x_pred = np.linspace(0, 5, 50)   
 y_pred = np.linspace(0, 5, 50)  
 xx_pred, yy_pred = np.meshgrid(x_pred, y_pred)
-#model_viz = np.array([xx_pred.flatten(), yy_pred.flatten()]).T
+model_viz = np.array([xx_pred.flatten(), yy_pred.flatten()]).T
 
 plt.style.use('default')
 fig = plt.figure(figsize=(25, 25))
 ax1 = fig.gca(projection='3d')
+#ax2 = fig.add_subplot(projection='3d')
 
 ax1.plot(x, y, z, color='g', zorder=15, linestyle='none', marker='o', alpha=0.5)
 
-Z=0.00476584*X + 0.82046486*Y + 0.6748162321603872
-ax1.plot_surface(xx_pred, yy_pred, Z)
+Z=0.00476584*xx_pred + 0.82046486*yy_pred + 0.6748162321603872
+#ax2.plot_surface(xx_pred, yy_pred, Z)
 
 ax1.set_xlabel('Value for Money Rating', fontsize=12)
 ax1.set_ylabel('Seller Rating', fontsize=12)
@@ -76,6 +70,5 @@ plt.plot(X, model2.predict(X),color='k')
 
 plt.xlabel("Value for Money Rating")
 plt.ylabel("Seller Rating")
-#plt.zlabel("Reliability Rating")
 
 plt.show()
